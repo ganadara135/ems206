@@ -1,0 +1,12 @@
+<ngx-loading [show]="loading"></ngx-loading>
+<div #energymonitorChart style="text-align:center">
+  <svg style.width="{{ width }}px" style.height="{{ height }}px">
+    <!-- !graphic -->
+    <svg:g [attr.transform]="translation">
+      <svg:g consumptionsection></svg:g>
+      <svg:g gridsection></svg:g>
+      <svg:g productionsection></svg:g>
+      <svg:g storagesection></svg:g>
+    </svg:g>
+  </svg>
+</div>
