@@ -34,7 +34,7 @@ import io.openems.edge.meter.api.SymmetricMeter;
 		immediate = true, //
 		configurationPolicy = ConfigurationPolicy.REQUIRE //
 )
-public class Accura2300 extends AbstractOpenemsModbusComponent implements SymmetricMeter, OpenemsComponent {
+public class Accura2300 extends AbstractOpenemsModbusComponent implements SymmetricMeter, AsymmetricMeter, OpenemsComponent {
 
 	private Config config = null;
 
@@ -57,6 +57,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent implements Symmet
 		super(//
 				OpenemsComponent.ChannelId.values(), //
 				SymmetricMeter.ChannelId.values(),
+				AsymmetricMeter.ChannelId.values(), //
 				ChannelId.values() //
 		);
 	}
@@ -85,52 +86,51 @@ public class Accura2300 extends AbstractOpenemsModbusComponent implements Symmet
 	protected ModbusProtocol defineModbusProtocol() {
 		// TODO implement ModbusProtocol
 		
+//		return new ModbusProtocol(this, //
+//				new FC3ReadRegistersTask(0, Priority.HIGH,
+//						m(SymmetricMeter.ChannelId.ACTIVE_POWER, new UnsignedWordElement(0))),
+//				new FC3ReadRegistersTask(1, Priority.HIGH, 
+//						m(SymmetricMeter.ChannelId.ACTIVE_CONSUMPTION_ENERGY, new UnsignedDoublewordElement(2)) ));
+		// 이 방식은 데이터 종류별로 묶어서 컨넥션 횟수를 줄일 수 있
 		return new ModbusProtocol(this, //
-				new FC3ReadRegistersTask(0, Priority.HIGH,
-						m(SymmetricMeter.ChannelId.ACTIVE_POWER, new UnsignedWordElement(0))),
-				new FC3ReadRegistersTask(1, Priority.HIGH, 
-						m(SymmetricMeter.ChannelId.ACTIVE_CONSUMPTION_ENERGY, new UnsignedDoublewordElement(2)) ));
-				
+				// Voltage Data of Accura 2300[S]
+				new FC3ReadRegistersTask(0x11123, Priority.HIGH,
+						// 11123  Voltage Vavg1  Float32  PR   삼상 전압의 기본파 성 평균 단위[V]
+						m(new UnsignedDoublewordElement(0x11123))
+							.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
+							.build(),
+					    // 11151  Frequency  Float32  PR  입력 전압 주파수. 단[Hz] 		
+						m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(0x11151),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+						// subunit   모듈 기기(센싱  기기)
+						// Module ID 0의 시작 Number는 11201
+						// 11207  Current  Float32  PR   Current Average (CT Measured Data). 단위 [A] 		
+						m(SymmetricMeter.ChannelId.CURRENT, new UnsignedDoublewordElement(0x11207),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)));
+	
+
+		// 초기 설정 방식 : 단점 - new() 할 때마다 송신 발생, 즉, 아래 방식은 4번의 컨넥션 발생,  
 //		return new ModbusProtocol(this, 
 //				new FC3ReadRegistersTask(1, Priority.HIGH, 
 //						m(SymmetricMeter.ChannelId.ACTIVE_POWER, new SignedWordElement(1))),
-//				
 //				new FC3ReadRegistersTask(1001, Priority.HIGH, 
 //						m(SymmetricMeter.ChannelId.VOLTAGE, new SignedWordElement(1001))),
-//		
 //				new FC3ReadRegistersTask(1001, Priority.HIGH, 
 //						m(SymmetricMeter.ChannelId.REACTIVE_POWER, new SignedWordElement(1001))),
-//
 //				new FC3ReadRegistersTask(2000, Priority.HIGH, 
 //						m(SymmetricMeter.ChannelId.FREQUENCY, new SignedWordElement(2000))));
-		
-//		new FC3ReadRegistersTask(0xc558, Priority.HIGH, //
-//				m(new UnsignedDoublewordElement(0xc558)) //
-//						.m(AsymmetricMeter.ChannelId.VOLTAGE_L1, ElementToChannelConverter.SCALE_FACTOR_1) //
-//						.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_1) //
-//						.build(), //
-//				new DummyRegisterElement(0xc55A, 0xc55D), //
-//				m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(0xc55E)), //
-//				m(new UnsignedDoublewordElement(0xc560)) //
-//						.m(AsymmetricMeter.ChannelId.CURRENT_L1,
-//								ElementToChannelConverter.INVERT_IF_TRUE(this.invert)) //
-//						.m(SymmetricMeter.ChannelId.CURRENT,
-//								ElementToChannelConverter.INVERT_IF_TRUE(this.invert)) //
-//						.build(), //
-//				new DummyRegisterElement(0xc562, 0xc567), //
-//				m(SymmetricMeter.ChannelId.ACTIVE_POWER, new SignedDoublewordElement(0xc568),
-//						ElementToChannelConverter.SCALE_FACTOR_1_AND_INVERT_IF_TRUE(this.invert)), //
-//				m(SymmetricMeter.ChannelId.REACTIVE_POWER, new SignedDoublewordElement(0xc56A),
-//						ElementToChannelConverter.SCALE_FACTOR_1_AND_INVERT_IF_TRUE(this.invert)) //
-	
 	}
 
 	@Override
 	public String debugLog() {
 		System.out.println("aaaaaa  aaaaaaaa   aaaaaaaaaaa");
 		
-		return "L:" + this.getActivePower().value().asString() + " / " 
-				+ this.getActiveConsumptionEnergy().value().asString() + " / " ;
+		return "L:" + this.getVoltage().value().asString() + " / "
+				+ this.getFrequency().value().asString() + " / "
+				+ this.getCurrent().value().asString() + " / ";
+		
+//		return "L:" + this.getActivePower().value().asString() + " / " 
+//				+ this.getActiveConsumptionEnergy().value().asString() + " / " ;
 //				+ this.getReactivePower().value().asString() + " / " 
 //				+ this.getFrequency().value().asString();
 
