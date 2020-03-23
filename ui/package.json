@@ -6,9 +6,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build-edge": "ng build -prod --env=edge --base-href / --output-path=target/edge",
-    "build-backend": "ng build -prod --env=backend --base-href /m/ --output-path=target/backend",
+    "build": "NODE_ENV=production && ng build --base-href /m/",
+    "build-edge": "NODE_ENV=production && ng build --configuration=edge --output-path=target/edge",
+    "build-backend": "ng build --configuration=backend --base-href /backend/ --output-path=target/backend",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
