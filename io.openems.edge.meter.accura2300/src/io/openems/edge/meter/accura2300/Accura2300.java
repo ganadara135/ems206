@@ -136,82 +136,85 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 		if(this.config.sensor_num() == 3) {
 			mod = new ModbusProtocol(this,					
 					new FC3ReadRegistersTask(11123, Priority.LOW,
-							m(new UnsignedDoublewordElement(11123))
-//								.m(ChannelId.ACCURA2350_1_CURRENT, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
-								.m(AsymmetricMeter.ChannelId.VOLTAGE_L1, ElementToChannelConverter.SCALE_FACTOR_MINUS_3) //
-								.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
-								.build(),
-							m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(11151),      // 0x11125),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 주소 11201 Unit ID 0 시작 주소
-							// 모든상의 전류의 평균 11207
-							m(Accura2300.ChannelId.ACCURA2350_1_CURRENT, new UnsignedDoublewordElement(11207),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11267  유효전력[kW]
-							m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new UnsignedDoublewordElement(11267),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11275  무효전력[KVAR total]
-							m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new UnsignedDoublewordElement(11275),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-							),
+						m(SymmetricMeter.ChannelId.VOLTAGE, new UnsignedDoublewordElement(11123),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )),
+					    // 11151  Frequency  Float32  PR  입력 전압 주파수. 단[Hz] 		
+					new FC3ReadRegistersTask(11151, Priority.LOW,
+						m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(11151),      // 0x11125),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 모든상의 전류의 평균 11207
+					new FC3ReadRegistersTask(11207, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_CURRENT, new UnsignedDoublewordElement(11207),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11267  유효전력[kW]
+					new FC3ReadRegistersTask(11267, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new UnsignedDoublewordElement(11267),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11275  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11275, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new UnsignedDoublewordElement(11275),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 					// 주소 11351 Unit ID 1 시작 주소 
 					new FC3ReadRegistersTask(11357, Priority.LOW, //
-							// 모든상의 전류의 평균 11357
-							m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new UnsignedDoublewordElement(11357),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11417  유효전력[KW total]
-							m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new UnsignedDoublewordElement(11417),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11425  무효전력[KVAR total]
-							m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new UnsignedDoublewordElement(11425),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-					),
+						// 모든상의 전류의 평균 11357
+						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new UnsignedDoublewordElement(11357),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11417  유효전력[KW total]
+					new FC3ReadRegistersTask(11417, Priority.LOW, //
+						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new UnsignedDoublewordElement(11417),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11425  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11425, Priority.LOW, //
+						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new UnsignedDoublewordElement(11425),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 					// 주소 11501 Unit ID 2 시작 주소 
 					new FC3ReadRegistersTask(11507, Priority.LOW, //
 							// 모든상의 전류의 평균 11507
 							m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new UnsignedDoublewordElement(11507),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 							// 11567  유효전력[KW total]
+					new FC3ReadRegistersTask(11567, Priority.LOW, //
 							m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new UnsignedDoublewordElement(11567),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 							// 11575  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11575, Priority.LOW, //
 							m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new UnsignedDoublewordElement(11575),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-					)
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3))
 				);
 		} else if(this.config.sensor_num() == 2) {
 			mod = new ModbusProtocol(this,					
 					new FC3ReadRegistersTask(11123, Priority.LOW,
-							m(new UnsignedDoublewordElement(11123))
-//								.m(ChannelId.ACCURA2350_1_CURRENT, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
-								.m(AsymmetricMeter.ChannelId.VOLTAGE_L1, ElementToChannelConverter.SCALE_FACTOR_MINUS_3) //
-								.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
-								.build(),
-							m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(11151),      // 0x11125),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 주소 11201 Unit ID 0 시작 주소
-							// 모든상의 전류의 평균 11207
-							m(Accura2300.ChannelId.ACCURA2350_1_CURRENT, new UnsignedDoublewordElement(11207),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11267  유효전력[kW]
-							m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new UnsignedDoublewordElement(11267),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
-							// 11275  무효전력[KVAR total]
-							m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new UnsignedDoublewordElement(11275),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-							),
+						m(SymmetricMeter.ChannelId.VOLTAGE, new UnsignedDoublewordElement(11123),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )),
+					    // 11151  Frequency  Float32  PR  입력 전압 주파수. 단[Hz] 		
+					new FC3ReadRegistersTask(11151, Priority.LOW,
+						m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(11151),      // 0x11125),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 모든상의 전류의 평균 11207
+					new FC3ReadRegistersTask(11207, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_CURRENT, new UnsignedDoublewordElement(11207),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11267  유효전력[kW]
+					new FC3ReadRegistersTask(11267, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new UnsignedDoublewordElement(11267),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
+						// 11275  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11275, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new UnsignedDoublewordElement(11275),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 					// 주소 11351 Unit ID 1 시작 주소 
 					new FC3ReadRegistersTask(11357, Priority.LOW, //
 							// 모든상의 전류의 평균 11357
 							m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new UnsignedDoublewordElement(11357),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 							// 11417  유효전력[KW total]
+					new FC3ReadRegistersTask(11417, Priority.LOW, //
 							m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new UnsignedDoublewordElement(11417),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 							// 11425  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11425, Priority.LOW, //
 							m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new UnsignedDoublewordElement(11425),
-									ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-					)
+									ElementToChannelConverter.SCALE_FACTOR_MINUS_3))
 				);
 		} else {		
 		// sensor_num == 1  일때 시
@@ -219,27 +222,33 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 			mod =  new ModbusProtocol(this,
 					// Voltage Data of Accura 2300[S]
 					new FC3ReadRegistersTask(11123, Priority.LOW,
+						m(SymmetricMeter.ChannelId.VOLTAGE, new UnsignedDoublewordElement(11123),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )),
 						// 11123  Voltage Vavg1  Float32  PR   삼상 전압의 기본파 성 평균 단위[V]
-						m(new SignedDoublewordElement(11123))
-						    .m(AsymmetricMeter.ChannelId.VOLTAGE_L1, ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-							.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
-							.build(),
+//						m(new UnsignedDoublewordElement(0x2b73))
+//						    .m(AsymmetricMeter.ChannelId.VOLTAGE_L1, ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
+//							.m(SymmetricMeter.ChannelId.VOLTAGE, ElementToChannelConverter.SCALE_FACTOR_MINUS_3 )
+//							.build(),
 					    // 11151  Frequency  Float32  PR  입력 전압 주파수. 단[Hz] 		
-						m(SymmetricMeter.ChannelId.FREQUENCY, new SignedDoublewordElement(11151),      // 0x11125),
-								ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+					new FC3ReadRegistersTask(11151, Priority.LOW,
+						m(SymmetricMeter.ChannelId.FREQUENCY, new UnsignedDoublewordElement(11151),      // 0x11125),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 						// subunit   모듈 기기(센싱  기기)
 						// Module ID 0의 시작 Number는 11201   // Module ID === Sensor Num (Accura2350)
 						// 기본값으로 Accura 2350  1개가 설치됐다고 가정 
+//						new DummyRegisterElement(11201),
 						// 모든상의 전류의 평균 11207
+					new FC3ReadRegistersTask(11207, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_CURRENT, new UnsignedDoublewordElement(11207),
-								ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 						// 11267  유효전력[kW]
+					new FC3ReadRegistersTask(11267, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new UnsignedDoublewordElement(11267),
-								ElementToChannelConverter.SCALE_FACTOR_MINUS_3),
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)),
 						// 11275  무효전력[KVAR total]
+					new FC3ReadRegistersTask(11275, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new UnsignedDoublewordElement(11275),
-								ElementToChannelConverter.SCALE_FACTOR_MINUS_3)
-						)
+								ElementToChannelConverter.SCALE_FACTOR_MINUS_3))
 				);
 		}
 		
