@@ -95,6 +95,7 @@
 	bnd.identity;id='io.openems.edge.meter.janitza.umg96rme',\
 	bnd.identity;id='io.openems.edge.meter.microcare.sdm630',\
 	bnd.identity;id='io.openems.edge.meter.pqplus.umd97',\
+	bnd.identity;id='io.openems.edge.meter.realsyscnv',\
 	bnd.identity;id='io.openems.edge.meter.schneider.acti9.smartlink',\
 	bnd.identity;id='io.openems.edge.meter.socomec',\
 	bnd.identity;id='io.openems.edge.meter.sunspec',\
@@ -114,6 +115,7 @@
 	bnd.identity;id='io.openems.edge.tesla.powerwall2',\
 	bnd.identity;id='io.openems.edge.timedata.influxdb',\
 	bnd.identity;id='io.openems.edge.timedata.rrd4j'
+	
 -runbundles: \
 	Java-WebSocket;version='[1.4.1,1.4.2)',\
 	com.fazecast.jSerialComm;version='[2.5.1,2.5.2)',\
@@ -201,6 +203,7 @@
 	io.openems.edge.meter.janitza.umg96rme;version=snapshot,\
 	io.openems.edge.meter.microcare.sdm630;version=snapshot,\
 	io.openems.edge.meter.pqplus.umd97;version=snapshot,\
+	io.openems.edge.meter.realsyscnv;version=snapshot,\
 	io.openems.edge.meter.schneider.acti9.smartlink;version=snapshot,\
 	io.openems.edge.meter.socomec;version=snapshot,\
 	io.openems.edge.meter.sunspec;version=snapshot,\
