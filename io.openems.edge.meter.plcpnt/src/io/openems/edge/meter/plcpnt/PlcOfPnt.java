@@ -56,23 +56,31 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 				.unit(Unit.NONE)),
 		GAS_USAGE_7(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_8(Doc.of(OpenemsType.INTEGER) //
+		
+		DRY_AP1_1(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_9(Doc.of(OpenemsType.INTEGER) //
+		DRY_RTD_TEMP_1(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_10(Doc.of(OpenemsType.INTEGER) //
+		DRY_NM_FLOW_1(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_11(Doc.of(OpenemsType.INTEGER) //
+		DRY_TOTAL_NM_FLOW_1(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_12(Doc.of(OpenemsType.INTEGER) //
+		DRY_AP1_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_13(Doc.of(OpenemsType.INTEGER) //
+		DRY_RTD_TEMP_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_14(Doc.of(OpenemsType.INTEGER) //
+		DRY_NM_FLOW_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_15(Doc.of(OpenemsType.INTEGER) //
+		DRY_TOTAL_NM_FLOW_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
-		GAS_USAGE_16(Doc.of(OpenemsType.INTEGER) //
+		
+		TEMP_CNT_PV_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_SV_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_PV_2(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_SV_2(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE));
 
 		private final Doc doc;
@@ -136,17 +144,20 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 			new FC4ReadInputRegistersTask(61, Priority.LOW,
 					m(PlcOfPnt.ChannelId.GAS_USAGE_7, new UnsignedDoublewordElement(61))),
 			new FC4ReadInputRegistersTask(71, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_8, new UnsignedDoublewordElement(71))),
+					m(PlcOfPnt.ChannelId.DRY_AP1_1, new UnsignedDoublewordElement(71)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new UnsignedDoublewordElement(73)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new UnsignedDoublewordElement(75))),
+			new FC4ReadInputRegistersTask(79, Priority.LOW,
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new UnsignedDoublewordElement(79))),
 			new FC4ReadInputRegistersTask(81, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_9, new UnsignedDoublewordElement(81))),
-			new FC4ReadInputRegistersTask(91, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_10, new UnsignedDoublewordElement(91))),
-			new FC4ReadInputRegistersTask(101, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_11, new UnsignedDoublewordElement(101))),
-			new FC4ReadInputRegistersTask(111, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
-			new FC4ReadInputRegistersTask(121, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
+					m(PlcOfPnt.ChannelId.DRY_AP1_1, new UnsignedDoublewordElement(81)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new UnsignedDoublewordElement(83)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new UnsignedDoublewordElement(85)),
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new UnsignedDoublewordElement(87)))
+//			new FC4ReadInputRegistersTask(111, Priority.LOW,
+//					m(PlcOfPnt.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
+//			new FC4ReadInputRegistersTask(121, Priority.LOW,
+//					m(PlcOfPnt.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
 			);
 	}
 	
@@ -171,43 +182,38 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 	Channel<Integer> getGasUsage7() {
 		return this.channel(ChannelId.GAS_USAGE_7);
 	}
-	Channel<Integer> getGasUsage8() {
-		return this.channel(ChannelId.GAS_USAGE_8);
+	Channel<Float> getDryAp1() {
+		return this.channel(ChannelId.DRY_AP1_1);
 	}
-	Channel<Integer> getGasUsage9() {
-		return this.channel(ChannelId.GAS_USAGE_9);
+	Channel<Float> getDryRtdTemp1() {
+		return this.channel(ChannelId.DRY_RTD_TEMP_1);
 	}
-	Channel<Integer> getGasUsage10() {
-		return this.channel(ChannelId.GAS_USAGE_10);
+	Channel<Float> getDryNmFlow1() {
+		return this.channel(ChannelId.DRY_NM_FLOW_1);
 	}
-	Channel<Integer> getGasUsage11() {
-		return this.channel(ChannelId.GAS_USAGE_11);
+	Channel<Float> getDryTotalNmFlow1() {
+		return this.channel(ChannelId.DRY_TOTAL_NM_FLOW_1);
 	}
-	Channel<Integer> getGasUsage12() {
-		return this.channel(ChannelId.GAS_USAGE_12);
+	Channel<Float> getDryAp2() {
+		return this.channel(ChannelId.DRY_AP1_2);
 	}
-	Channel<Integer> getGasUsage13() {
-		return this.channel(ChannelId.GAS_USAGE_13);
+	Channel<Float> getDryRtdTemp2() {
+		return this.channel(ChannelId.DRY_RTD_TEMP_2);
 	}
-	Channel<Integer> getGasUsage14() {
-		return this.channel(ChannelId.GAS_USAGE_14);
+	Channel<Float> getDryNmDlow2() {
+		return this.channel(ChannelId.DRY_NM_FLOW_2);
 	}
-	Channel<Integer> getGasUsage15() {
-		return this.channel(ChannelId.GAS_USAGE_15);
-	}
-	Channel<Integer> getGasUsage16() {
-		return this.channel(ChannelId.GAS_USAGE_16);
-	}
-
-	
+	Channel<Float> getDryTotalNmFlow2() {
+		return this.channel(ChannelId.DRY_TOTAL_NM_FLOW_2);
+	}	
 
 	@Override
 	public String debugLog() {
 		return "L:" + this.getGasUsage1().value().asString() + " / "
-				+ this.getGasUsage2().value().asString() + " / "
-				+ this.getGasUsage3().value().asString() + " / "
-				+ this.getGasUsage4().value().asString() + " / "
-				+ this.getGasUsage5().value().asString();
+				+ this.getDryAp1().value().asString() + " / "
+				+ this.getDryTotalNmFlow1().value().asString() + " / "
+				+ this.getDryAp2().value().asString() + " / "
+				+ this.getDryTotalNmFlow2().value().asString();
 	}
 	
 	@Override

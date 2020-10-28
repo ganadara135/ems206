@@ -40,7 +40,7 @@ import io.openems.edge.meter.api.EDfemsMeter.ChannelId;
 
 @Designate(ocd = Config.class, factory = true)
 @Component(//
-		name = "Meter.Accura2300", //
+		name = "Meter.Accura2300 1P", //
 		immediate = true, //
 		configurationPolicy = ConfigurationPolicy.REQUIRE //
 )
@@ -50,13 +50,15 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	private Config config = null;
 
 	public enum ChannelId implements io.openems.edge.common.channel.ChannelId {		
-		
-		ACCURA2350_1_CURRENT(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.MILLIAMPERE) //
-				.text(POWER_DOC_TEXT)),		
+		ACCURA2300_VOLTAGE(Doc.of(OpenemsType.FLOAT) //
+				.unit(Unit.VOLT)),
+		ACCURA2300_FREQUENCY(Doc.of(OpenemsType.FLOAT) //
+				.unit(Unit.HERTZ)),
+		ACCURA2350_1_CURRENT(Doc.of(OpenemsType.FLOAT) //
+				.unit(Unit.MILLIAMPERE)),
+//				.text(POWER_DOC_TEXT)),		
 		ACCURA2350_1_ACTIVE_POWER(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.WATT) //
-				.text(POWER_DOC_TEXT)),				
+				.unit(Unit.WATT)),		
 		ACCURA2350_1_REACTIVE_POWER(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.VOLT_AMPERE_REACTIVE) //
 				.text(POWER_DOC_TEXT)),
