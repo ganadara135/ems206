@@ -1,4 +1,4 @@
-package io.openems.edge.meter.plcpnt;
+package io.openems.edge.meter.plcsungha;
 
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.ComponentContext;
@@ -17,10 +17,7 @@ import io.openems.common.types.OpenemsType;
 import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
 import io.openems.edge.bridge.modbus.api.ModbusProtocol;
-import io.openems.edge.bridge.modbus.api.element.SignedWordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
-import io.openems.edge.bridge.modbus.api.element.UnsignedQuadruplewordElement;
-import io.openems.edge.bridge.modbus.api.task.FC3ReadRegistersTask;
 import io.openems.edge.bridge.modbus.api.task.FC4ReadInputRegistersTask;
 import io.openems.edge.common.channel.Channel;
 import io.openems.edge.common.channel.Doc;
@@ -32,12 +29,12 @@ import io.openems.edge.meter.api.SymmetricMeter;
 
 @Designate(ocd = Config.class, factory = true)
 @Component(//
-		name = "Meter.PLCofPnt", //
+		name = "meter.PlcOfSungha", //
 		immediate = true, //
 		configurationPolicy = ConfigurationPolicy.REQUIRE //
 )
-public class PlcOfPnt extends AbstractOpenemsModbusComponent 
-	implements SymmetricMeter, OpenemsComponent {
+public class PlcOfSungha extends AbstractOpenemsModbusComponent 
+implements SymmetricMeter, OpenemsComponent {
 
 	private Config config = null;
 
@@ -87,7 +84,7 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 		}
 	}
 
-	public PlcOfPnt() {
+	public PlcOfSungha() {
 		super(//
 				OpenemsComponent.ChannelId.values(), //
 				SymmetricMeter.ChannelId.values(), //
@@ -122,31 +119,31 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 		// TODO implement ModbusProtocol
 		return new ModbusProtocol(this, //
 			new FC4ReadInputRegistersTask(1, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_1, new UnsignedDoublewordElement(1))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_1, new UnsignedDoublewordElement(1))),
 			new FC4ReadInputRegistersTask(11, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_2, new UnsignedDoublewordElement(11))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_2, new UnsignedDoublewordElement(11))),
 			new FC4ReadInputRegistersTask(21, Priority.LOW,	
-					m(PlcOfPnt.ChannelId.GAS_USAGE_3, new UnsignedDoublewordElement(21))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_3, new UnsignedDoublewordElement(21))),
 			new FC4ReadInputRegistersTask(31, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_4, new UnsignedDoublewordElement(31))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_4, new UnsignedDoublewordElement(31))),
 			new FC4ReadInputRegistersTask(41, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_5, new UnsignedDoublewordElement(41))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_5, new UnsignedDoublewordElement(41))),
 			new FC4ReadInputRegistersTask(51, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_6, new UnsignedDoublewordElement(51))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_6, new UnsignedDoublewordElement(51))),
 			new FC4ReadInputRegistersTask(61, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_7, new UnsignedDoublewordElement(61))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_7, new UnsignedDoublewordElement(61))),
 			new FC4ReadInputRegistersTask(71, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_8, new UnsignedDoublewordElement(71))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_8, new UnsignedDoublewordElement(71))),
 			new FC4ReadInputRegistersTask(81, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_9, new UnsignedDoublewordElement(81))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_9, new UnsignedDoublewordElement(81))),
 			new FC4ReadInputRegistersTask(91, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_10, new UnsignedDoublewordElement(91))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_10, new UnsignedDoublewordElement(91))),
 			new FC4ReadInputRegistersTask(101, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_11, new UnsignedDoublewordElement(101))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_11, new UnsignedDoublewordElement(101))),
 			new FC4ReadInputRegistersTask(111, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
+					m(PlcOfSungha.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
 			new FC4ReadInputRegistersTask(121, Priority.LOW,
-					m(PlcOfPnt.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
+					m(PlcOfSungha.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
 			);
 	}
 	
@@ -207,7 +204,8 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 				+ this.getGasUsage2().value().asString() + " / "
 				+ this.getGasUsage3().value().asString() + " / "
 				+ this.getGasUsage4().value().asString() + " / "
-				+ this.getGasUsage5().value().asString();
+				+ this.getGasUsage5().value().asString() + " / "
+				+ this.getGasUsage14().value().asString();
 	}
 	
 	@Override
