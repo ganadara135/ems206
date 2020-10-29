@@ -17,6 +17,8 @@ import io.openems.common.types.OpenemsType;
 import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
 import io.openems.edge.bridge.modbus.api.ModbusProtocol;
+import io.openems.edge.bridge.modbus.api.element.DummyRegisterElement;
+import io.openems.edge.bridge.modbus.api.element.FloatDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.SignedWordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedQuadruplewordElement;
@@ -72,16 +74,16 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 		DRY_NM_FLOW_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
 		DRY_TOTAL_NM_FLOW_2(Doc.of(OpenemsType.FLOAT) //
-				.unit(Unit.NONE)),
-		
-		TEMP_CNT_PV_1(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.NONE)),
-		TEMP_CNT_SV_1(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.NONE)),
-		TEMP_CNT_PV_2(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.NONE)),
-		TEMP_CNT_SV_2(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE));
+		
+//		TEMP_CNT_PV_1(Doc.of(OpenemsType.INTEGER) //
+//				.unit(Unit.NONE)),
+//		TEMP_CNT_SV_1(Doc.of(OpenemsType.INTEGER) //
+//				.unit(Unit.NONE)),
+//		TEMP_CNT_PV_2(Doc.of(OpenemsType.INTEGER) //
+//				.unit(Unit.NONE)),
+//		TEMP_CNT_SV_2(Doc.of(OpenemsType.INTEGER) //
+//				.unit(Unit.NONE));
 
 		private final Doc doc;
 
@@ -113,11 +115,9 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 
 	@Activate
 	void activate(ComponentContext context, Config config) {
-		
 		this.config = config;
 		super.activate(context, config.id(), config.alias(), config.enabled(), config.modbusUnitId(), this.cm, "Modbus",
 				config.modbus_id());
-		
 	}
 
 	@Deactivate
@@ -144,16 +144,17 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 			new FC4ReadInputRegistersTask(61, Priority.LOW,
 					m(PlcOfPnt.ChannelId.GAS_USAGE_7, new UnsignedDoublewordElement(61))),
 			new FC4ReadInputRegistersTask(71, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_AP1_1, new UnsignedDoublewordElement(71)),
-					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new UnsignedDoublewordElement(73)),
-					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new UnsignedDoublewordElement(75))),
+					m(PlcOfPnt.ChannelId.DRY_AP1_1, new FloatDoublewordElement(71)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new FloatDoublewordElement(73)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new FloatDoublewordElement(75))),
+//					new DummyRegisterElement(77, 78), // 매개변수는 범위
 			new FC4ReadInputRegistersTask(79, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new UnsignedDoublewordElement(79))),
-			new FC4ReadInputRegistersTask(81, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_AP1_1, new UnsignedDoublewordElement(81)),
-					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new UnsignedDoublewordElement(83)),
-					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new UnsignedDoublewordElement(85)),
-					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new UnsignedDoublewordElement(87)))
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new FloatDoublewordElement(79)),
+//			new FC4ReadInputRegistersTask(81, Priority.LOW,
+					m(PlcOfPnt.ChannelId.DRY_AP1_2, new FloatDoublewordElement(81)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_2, new FloatDoublewordElement(83)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_2, new FloatDoublewordElement(85)),
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(87)))
 //			new FC4ReadInputRegistersTask(111, Priority.LOW,
 //					m(PlcOfPnt.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
 //			new FC4ReadInputRegistersTask(121, Priority.LOW,
@@ -205,14 +206,19 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 	}
 	Channel<Float> getDryTotalNmFlow2() {
 		return this.channel(ChannelId.DRY_TOTAL_NM_FLOW_2);
-	}	
+	}
 
 	@Override
 	public String debugLog() {
 		return "L:" + this.getGasUsage1().value().asString() + " / "
 				+ this.getDryAp1().value().asString() + " / "
+				+ this.getDryRtdTemp1().value().asString() + " / "
+				+ this.getDryNmFlow1().value().asString() + " / "
 				+ this.getDryTotalNmFlow1().value().asString() + " / "
+				
 				+ this.getDryAp2().value().asString() + " / "
+				+ this.getDryRtdTemp2().value().asString() + " / "
+				+ this.getDryNmDlow2().value().asString() + " / "
 				+ this.getDryTotalNmFlow2().value().asString();
 	}
 	
