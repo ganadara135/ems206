@@ -1442,10 +1442,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 			mod =  new ModbusProtocol(this,
 					// Voltage Data of Accura 2300[S]
 					new FC3ReadRegistersTask(11123, Priority.LOW,
-						m(SymmetricMeter.ChannelId.VOLTAGE, new FloatDoublewordElement(11123))),
+						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11123))),
 					new FC3ReadRegistersTask(11151, Priority.LOW,
 					    // 11151  Frequency  Float32  PR  입력 전압 주파수. 단[Hz]
-						m(SymmetricMeter.ChannelId.FREQUENCY, new FloatDoublewordElement(11151))),								
+						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11151))),								
 						// subunit   모듈 기기(센싱  기기)
 						// Module ID 0의 시작 Number는 11201   // Module ID === Sensor Num (Accura2350)
 						// 기본값으로 Accura 2350  1개가 설치됐다고 가정 
