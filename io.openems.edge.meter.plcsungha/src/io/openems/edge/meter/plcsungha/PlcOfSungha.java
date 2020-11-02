@@ -143,7 +143,13 @@ implements SymmetricMeter, OpenemsComponent {
 			new FC4ReadInputRegistersTask(111, Priority.LOW,
 					m(PlcOfSungha.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
 			new FC4ReadInputRegistersTask(121, Priority.LOW,
-					m(PlcOfSungha.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
+					m(PlcOfSungha.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121))),
+			new FC4ReadInputRegistersTask(131, Priority.LOW,
+					m(PlcOfSungha.ChannelId.GAS_USAGE_14, new UnsignedDoublewordElement(131))),
+			new FC4ReadInputRegistersTask(141, Priority.LOW,
+					m(PlcOfSungha.ChannelId.GAS_USAGE_15, new UnsignedDoublewordElement(141))),
+			new FC4ReadInputRegistersTask(151, Priority.LOW,
+					m(PlcOfSungha.ChannelId.GAS_USAGE_16, new UnsignedDoublewordElement(151)))
 			);
 	}
 	
@@ -205,7 +211,7 @@ implements SymmetricMeter, OpenemsComponent {
 				+ this.getGasUsage3().value().asString() + " / "
 				+ this.getGasUsage4().value().asString() + " / "
 				+ this.getGasUsage5().value().asString() + " / "
-				+ this.getGasUsage14().value().asString();
+				+ this.getGasUsage16().value().asString();
 	}
 	
 	@Override
