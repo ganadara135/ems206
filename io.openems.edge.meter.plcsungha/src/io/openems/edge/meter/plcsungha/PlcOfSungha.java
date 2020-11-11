@@ -74,12 +74,12 @@ implements SymmetricMeter, OpenemsComponent {
 				.unit(Unit.NONE)),
 		TEMP_BURNER_1(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.DEGREE_CELSIUS)),
-		TEMP_BURNER_ON_OFF_1(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.ON_OFF)),
+		TEMP_BURNER_ON_OFF_1(Doc.of(OpenemsType.SHORT) //
+				.unit(Unit.NONE)),
 		TEMP_BURNER_9(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.DEGREE_CELSIUS)),
-		TEMP_BURNER_ON_OFF_9(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.ON_OFF));
+		TEMP_BURNER_ON_OFF_9(Doc.of(OpenemsType.SHORT) //
+				.unit(Unit.NONE));
 		
 
 		private final Doc doc;
@@ -222,13 +222,13 @@ implements SymmetricMeter, OpenemsComponent {
 	Channel<Integer> getTempBurner1() {
 		return this.channel(ChannelId.TEMP_BURNER_1);
 	}
-	Channel<Integer> getTempBurnerOnOff_1() {
+	Channel<Short> getTempBurnerOnOff_1() {
 		return this.channel(ChannelId.TEMP_BURNER_ON_OFF_1);
 	}
 	Channel<Integer> getTempBurner9() {
 		return this.channel(ChannelId.TEMP_BURNER_9);
 	}
-	Channel<Integer> getTempBurnerOnOff_9() {
+	Channel<Short> getTempBurnerOnOff_9() {
 		return this.channel(ChannelId.TEMP_BURNER_ON_OFF_9);
 	}
 

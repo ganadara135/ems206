@@ -412,8 +412,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 		// register 11046 ~ +39  CT 모듈 데이터유효성체크  UInt16   -1 = 비유효,  0 = 3상, 1 = 1상 
 		// 본 프로그램 가동전에 해당 CT 들이 정상 작동하는 지 유효성체크 후에 가동 시킨다.
 		// 설명 링크 : https://blog.naver.com/kjamjalee/222093298925
-//		11266  유효전력[kW]    11274  무효전력[kVAR]     11283 피상전력[kVA]      11285 누설전류[A]
-//		11313	삼상의 유효전력 예측[kW]  11323 삼상의 전류 예측[A]		11331  역률
+//		11266  유효전력[kW]    11274  무효전력[kVAR]     11283 피상전력[kVA]      11331  역률
 		
 		ModbusProtocol mod = null;
 		
@@ -455,108 +454,197 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
 					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330))),
+					
 					new FC3ReadRegistersTask(13356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_14_CURRENT, new FloatDoublewordElement(13356))),
 					new FC3ReadRegistersTask(13416, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_ACTIVE_POWER, new FloatDoublewordElement(13416))),
 					new FC3ReadRegistersTask(13424, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424))),
+					new FC3ReadRegistersTask(13432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_APPARENT_POWER, new FloatDoublewordElement(13432))),
+					new FC3ReadRegistersTask(13480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_POWER_FACTOR, new FloatDoublewordElement(13480))),
+					
 					new FC3ReadRegistersTask(13506, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_15_CURRENT, new FloatDoublewordElement(13506))),
 					new FC3ReadRegistersTask(13566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_ACTIVE_POWER, new FloatDoublewordElement(13566))),
 					new FC3ReadRegistersTask(13574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_REACTIVE_POWER, new FloatDoublewordElement(13574))),
+					new FC3ReadRegistersTask(13582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_APPARENT_POWER, new FloatDoublewordElement(13582))),
+					new FC3ReadRegistersTask(13630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_POWER_FACTOR, new FloatDoublewordElement(13630))),
+					
 					new FC3ReadRegistersTask(13656, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_16_CURRENT, new FloatDoublewordElement(13656))),
 					new FC3ReadRegistersTask(13716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_16_ACTIVE_POWER, new FloatDoublewordElement(13716))),
 					new FC3ReadRegistersTask(13724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_16_REACTIVE_POWER, new FloatDoublewordElement(13724))),
+					new FC3ReadRegistersTask(13732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_APPARENT_POWER, new FloatDoublewordElement(13732))),
+					new FC3ReadRegistersTask(13780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_POWER_FACTOR, new FloatDoublewordElement(13780))),
+					
 					new FC3ReadRegistersTask(13806, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_17_CURRENT, new FloatDoublewordElement(13806))),
 					new FC3ReadRegistersTask(13866, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_17_ACTIVE_POWER, new FloatDoublewordElement(13866))),
 					new FC3ReadRegistersTask(13874, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_17_REACTIVE_POWER, new FloatDoublewordElement(13874))),
+					new FC3ReadRegistersTask(13882, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_17_APPARENT_POWER, new FloatDoublewordElement(13882))),
+					new FC3ReadRegistersTask(13930, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_17_POWER_FACTOR, new FloatDoublewordElement(13930))),
+					
 					new FC3ReadRegistersTask(13956, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_18_CURRENT, new FloatDoublewordElement(13956))),
 					new FC3ReadRegistersTask(14016, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_18_ACTIVE_POWER, new FloatDoublewordElement(14016))),
 					new FC3ReadRegistersTask(14024, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_18_REACTIVE_POWER, new FloatDoublewordElement(14024)))
+						m(Accura2300.ChannelId.ACCURA2350_18_REACTIVE_POWER, new FloatDoublewordElement(14024))),
+					new FC3ReadRegistersTask(14032, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_18_APPARENT_POWER, new FloatDoublewordElement(14032))),
+					new FC3ReadRegistersTask(14080, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_18_POWER_FACTOR, new FloatDoublewordElement(14080)))
 				);
 		}else if(this.config.sensor_num() == 17) {
 			mod = new ModbusProtocol(this,		
@@ -584,7 +672,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11060)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11061))),							
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -594,102 +682,186 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330))),
+					
 					new FC3ReadRegistersTask(13356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_14_CURRENT, new FloatDoublewordElement(13356))),
 					new FC3ReadRegistersTask(13416, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_ACTIVE_POWER, new FloatDoublewordElement(13416))),
 					new FC3ReadRegistersTask(13424, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424))),
+					new FC3ReadRegistersTask(13432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_APPARENT_POWER, new FloatDoublewordElement(13432))),
+					new FC3ReadRegistersTask(13480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_POWER_FACTOR, new FloatDoublewordElement(13480))),
+					
 					new FC3ReadRegistersTask(13506, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_15_CURRENT, new FloatDoublewordElement(13506))),
 					new FC3ReadRegistersTask(13566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_ACTIVE_POWER, new FloatDoublewordElement(13566))),
 					new FC3ReadRegistersTask(13574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_REACTIVE_POWER, new FloatDoublewordElement(13574))),
+					new FC3ReadRegistersTask(13582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_APPARENT_POWER, new FloatDoublewordElement(13582))),
+					new FC3ReadRegistersTask(13630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_POWER_FACTOR, new FloatDoublewordElement(13630))),
+					
 					new FC3ReadRegistersTask(13656, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_16_CURRENT, new FloatDoublewordElement(13656))),
 					new FC3ReadRegistersTask(13716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_16_ACTIVE_POWER, new FloatDoublewordElement(13716))),
 					new FC3ReadRegistersTask(13724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_16_REACTIVE_POWER, new FloatDoublewordElement(13724))),
+					new FC3ReadRegistersTask(13732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_APPARENT_POWER, new FloatDoublewordElement(13732))),
+					new FC3ReadRegistersTask(13780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_POWER_FACTOR, new FloatDoublewordElement(13780))),
+					
 					new FC3ReadRegistersTask(13806, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_17_CURRENT, new FloatDoublewordElement(13806))),
 					new FC3ReadRegistersTask(13866, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_17_ACTIVE_POWER, new FloatDoublewordElement(13866))),
 					new FC3ReadRegistersTask(13874, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_17_REACTIVE_POWER, new FloatDoublewordElement(13874)))
+						m(Accura2300.ChannelId.ACCURA2350_17_REACTIVE_POWER, new FloatDoublewordElement(13874))),
+					new FC3ReadRegistersTask(13882, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_17_APPARENT_POWER, new FloatDoublewordElement(13882))),
+					new FC3ReadRegistersTask(13930, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_17_POWER_FACTOR, new FloatDoublewordElement(13930)))
 				);
 		}else if(this.config.sensor_num() == 16) {
 			mod = new ModbusProtocol(this,					
@@ -716,7 +888,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11060))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -726,96 +898,175 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330))),
+					
 					new FC3ReadRegistersTask(13356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_14_CURRENT, new FloatDoublewordElement(13356))),
 					new FC3ReadRegistersTask(13416, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_ACTIVE_POWER, new FloatDoublewordElement(13416))),
 					new FC3ReadRegistersTask(13424, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424))),
+					new FC3ReadRegistersTask(13432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_APPARENT_POWER, new FloatDoublewordElement(13432))),
+					new FC3ReadRegistersTask(13480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_POWER_FACTOR, new FloatDoublewordElement(13480))),
+					
 					new FC3ReadRegistersTask(13506, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_15_CURRENT, new FloatDoublewordElement(13506))),
 					new FC3ReadRegistersTask(13566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_ACTIVE_POWER, new FloatDoublewordElement(13566))),
 					new FC3ReadRegistersTask(13574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_REACTIVE_POWER, new FloatDoublewordElement(13574))),
+					new FC3ReadRegistersTask(13582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_APPARENT_POWER, new FloatDoublewordElement(13582))),
+					new FC3ReadRegistersTask(13630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_POWER_FACTOR, new FloatDoublewordElement(13630))),
+					
 					new FC3ReadRegistersTask(13656, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_16_CURRENT, new FloatDoublewordElement(13656))),
 					new FC3ReadRegistersTask(13716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_16_ACTIVE_POWER, new FloatDoublewordElement(13716))),
 					new FC3ReadRegistersTask(13724, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_16_REACTIVE_POWER, new FloatDoublewordElement(13724)))
+						m(Accura2300.ChannelId.ACCURA2350_16_REACTIVE_POWER, new FloatDoublewordElement(13724))),
+					new FC3ReadRegistersTask(13732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_APPARENT_POWER, new FloatDoublewordElement(13732))),
+					new FC3ReadRegistersTask(13780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_16_POWER_FACTOR, new FloatDoublewordElement(13780)))
 				);
 		}else if(this.config.sensor_num() == 15) {
 			mod = new ModbusProtocol(this,		
@@ -841,7 +1092,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059))),							
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -851,90 +1102,164 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330))),
+					
 					new FC3ReadRegistersTask(13356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_14_CURRENT, new FloatDoublewordElement(13356))),
 					new FC3ReadRegistersTask(13416, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_ACTIVE_POWER, new FloatDoublewordElement(13416))),
 					new FC3ReadRegistersTask(13424, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424))),
+					new FC3ReadRegistersTask(13432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_APPARENT_POWER, new FloatDoublewordElement(13432))),
+					new FC3ReadRegistersTask(13480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_POWER_FACTOR, new FloatDoublewordElement(13480))),
+					
 					new FC3ReadRegistersTask(13506, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2350_15_CURRENT, new FloatDoublewordElement(13506))),
 					new FC3ReadRegistersTask(13566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_15_ACTIVE_POWER, new FloatDoublewordElement(13566))),
 					new FC3ReadRegistersTask(13574, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_15_REACTIVE_POWER, new FloatDoublewordElement(13574)))
+						m(Accura2300.ChannelId.ACCURA2350_15_REACTIVE_POWER, new FloatDoublewordElement(13574))),
+					new FC3ReadRegistersTask(13582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_APPARENT_POWER, new FloatDoublewordElement(13582))),
+					new FC3ReadRegistersTask(13630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_15_POWER_FACTOR, new FloatDoublewordElement(13630)))
 				);
 		}else if(this.config.sensor_num() == 14) {
 			mod = new ModbusProtocol(this,					
@@ -959,7 +1284,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -969,84 +1294,153 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330))),
+					
 					new FC3ReadRegistersTask(13356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_14_CURRENT, new FloatDoublewordElement(13356))),
 					new FC3ReadRegistersTask(13416, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_14_ACTIVE_POWER, new FloatDoublewordElement(13416))),
 					new FC3ReadRegistersTask(13424, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424)))
+						m(Accura2300.ChannelId.ACCURA2350_14_REACTIVE_POWER, new FloatDoublewordElement(13424))),
+					new FC3ReadRegistersTask(13432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_APPARENT_POWER, new FloatDoublewordElement(13432))),
+					new FC3ReadRegistersTask(13480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_14_POWER_FACTOR, new FloatDoublewordElement(13480)))
 				);
 		}else if(this.config.sensor_num() == 13) {
 			mod = new ModbusProtocol(this,					
@@ -1070,7 +1464,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1080,78 +1474,142 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180))),
+					
 					new FC3ReadRegistersTask(13206, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_13_CURRENT, new FloatDoublewordElement(13206))),
 					new FC3ReadRegistersTask(13266, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_13_ACTIVE_POWER, new FloatDoublewordElement(13266))),
 					new FC3ReadRegistersTask(13274, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274)))
+						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274))),
+					new FC3ReadRegistersTask(13282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_APPARENT_POWER, new FloatDoublewordElement(13282))),
+					new FC3ReadRegistersTask(13330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_13_POWER_FACTOR, new FloatDoublewordElement(13330)))
 				);
 		}else if(this.config.sensor_num() == 12) {
 			mod = new ModbusProtocol(this,				
@@ -1174,7 +1632,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1184,72 +1642,131 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030))),
+					
 					new FC3ReadRegistersTask(13056, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_12_CURRENT, new FloatDoublewordElement(13056))),
 					new FC3ReadRegistersTask(13116, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_12_ACTIVE_POWER, new FloatDoublewordElement(13116))),
 					new FC3ReadRegistersTask(13124, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124)))
+						m(Accura2300.ChannelId.ACCURA2350_12_REACTIVE_POWER, new FloatDoublewordElement(13124))),
+					new FC3ReadRegistersTask(13132, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_APPARENT_POWER, new FloatDoublewordElement(13132))),
+					new FC3ReadRegistersTask(13180, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_12_POWER_FACTOR, new FloatDoublewordElement(13180)))
 				);
 		}else if(this.config.sensor_num() == 11) {
 			mod = new ModbusProtocol(this,					
@@ -1271,7 +1788,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1281,66 +1798,120 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880))),
+					
 					new FC3ReadRegistersTask(12906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_11_CURRENT, new FloatDoublewordElement(12906))),
 					new FC3ReadRegistersTask(12966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_11_ACTIVE_POWER, new FloatDoublewordElement(12966))),
 					new FC3ReadRegistersTask(12974, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974)))
+						m(Accura2300.ChannelId.ACCURA2350_11_REACTIVE_POWER, new FloatDoublewordElement(12974))),
+					new FC3ReadRegistersTask(12982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_APPARENT_POWER, new FloatDoublewordElement(12982))),
+					new FC3ReadRegistersTask(13030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_11_POWER_FACTOR, new FloatDoublewordElement(13030)))
 				);
 		}else if(this.config.sensor_num() == 10) {
 			mod = new ModbusProtocol(this,					
@@ -1361,7 +1932,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1371,60 +1942,109 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
 					new FC3ReadRegistersTask(12816, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_10_ACTIVE_POWER, new FloatDoublewordElement(12816))),
 					new FC3ReadRegistersTask(12824, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824)))
+						m(Accura2300.ChannelId.ACCURA2350_10_REACTIVE_POWER, new FloatDoublewordElement(12824))),
+					new FC3ReadRegistersTask(12832, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_APPARENT_POWER, new FloatDoublewordElement(12832))),
+					new FC3ReadRegistersTask(12880, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_10_POWER_FACTOR, new FloatDoublewordElement(12880)))
 				);
 		}else if(this.config.sensor_num() == 9) {
 			mod = new ModbusProtocol(this,					
@@ -1444,7 +2064,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1454,54 +2074,98 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580))),
+					
 					new FC3ReadRegistersTask(12606, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_9_CURRENT, new FloatDoublewordElement(12606))),
 					new FC3ReadRegistersTask(12666, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674)))
+						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330)))
 				);
 		}else if(this.config.sensor_num() == 8) {
 			mod = new ModbusProtocol(this,					
@@ -1520,7 +2184,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1530,48 +2194,87 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275))),
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430))),
+					
 					new FC3ReadRegistersTask(12456, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_8_CURRENT, new FloatDoublewordElement(12456))),
 					new FC3ReadRegistersTask(12516, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_8_ACTIVE_POWER, new FloatDoublewordElement(12516))),
 					new FC3ReadRegistersTask(12524, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524)))
+						m(Accura2300.ChannelId.ACCURA2350_8_REACTIVE_POWER, new FloatDoublewordElement(12524))),
+					new FC3ReadRegistersTask(12532, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_APPARENT_POWER, new FloatDoublewordElement(12532))),
+					new FC3ReadRegistersTask(12580, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_8_POWER_FACTOR, new FloatDoublewordElement(12580)))
 				);
 		}else if(this.config.sensor_num() == 7) {
 			mod = new ModbusProtocol(this,					
@@ -1589,7 +2292,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1599,42 +2302,76 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280))),
+					
 					new FC3ReadRegistersTask(12306, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_7_CURRENT, new FloatDoublewordElement(12306))),
 					new FC3ReadRegistersTask(12366, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_7_ACTIVE_POWER, new FloatDoublewordElement(12366))),
 					new FC3ReadRegistersTask(12374, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12275)))
+						m(Accura2300.ChannelId.ACCURA2350_7_REACTIVE_POWER, new FloatDoublewordElement(12374))),
+					new FC3ReadRegistersTask(12382, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_APPARENT_POWER, new FloatDoublewordElement(12382))),
+					new FC3ReadRegistersTask(12430, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_7_POWER_FACTOR, new FloatDoublewordElement(12430)))
 				);
 		}else if(this.config.sensor_num() == 6) {
 			mod = new ModbusProtocol(this,					
@@ -1651,7 +2388,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1661,36 +2398,65 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030))),
+					
 					new FC3ReadRegistersTask(12156, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_6_CURRENT, new FloatDoublewordElement(12156))),
 					new FC3ReadRegistersTask(12216, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_6_ACTIVE_POWER, new FloatDoublewordElement(12216))),
 					new FC3ReadRegistersTask(12224, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224)))
+						m(Accura2300.ChannelId.ACCURA2350_6_REACTIVE_POWER, new FloatDoublewordElement(12224))),
+					new FC3ReadRegistersTask(12232, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_APPARENT_POWER, new FloatDoublewordElement(12232))),
+					new FC3ReadRegistersTask(12280, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_6_POWER_FACTOR, new FloatDoublewordElement(12280)))
 				);
 		}else if(this.config.sensor_num() == 5) {
 			mod = new ModbusProtocol(this,					
@@ -1706,7 +2472,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1716,30 +2482,54 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780))),
+					
 					new FC3ReadRegistersTask(11906, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_5_CURRENT, new FloatDoublewordElement(11906))),
 					new FC3ReadRegistersTask(11966, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_5_ACTIVE_POWER, new FloatDoublewordElement(11966))),
 					new FC3ReadRegistersTask(11974, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974)))
+						m(Accura2300.ChannelId.ACCURA2350_5_REACTIVE_POWER, new FloatDoublewordElement(11974))),
+					new FC3ReadRegistersTask(11982, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_APPARENT_POWER, new FloatDoublewordElement(11982))),
+					new FC3ReadRegistersTask(12030, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_5_POWER_FACTOR, new FloatDoublewordElement(12030)))
 				);
 		}else if(this.config.sensor_num() == 4) {
 			mod = new ModbusProtocol(this,					
@@ -1754,7 +2544,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1764,24 +2554,43 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
-					new FC3ReadRegistersTask(11656, Priority.LOW,
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630))),
+					
+					new FC3ReadRegistersTask(11657, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_4_CURRENT, new FloatDoublewordElement(11656))),
 					new FC3ReadRegistersTask(11716, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_4_ACTIVE_POWER, new FloatDoublewordElement(11716))),
 					new FC3ReadRegistersTask(11724, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724)))
+						m(Accura2300.ChannelId.ACCURA2350_4_REACTIVE_POWER, new FloatDoublewordElement(11724))),
+					new FC3ReadRegistersTask(11732, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_APPARENT_POWER, new FloatDoublewordElement(11732))),
+					new FC3ReadRegistersTask(11780, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_4_POWER_FACTOR, new FloatDoublewordElement(11780)))
 				);
 		}else if(this.config.sensor_num() == 3) {
 			mod = new ModbusProtocol(this,					
@@ -1795,7 +2604,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1805,18 +2614,32 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480))),
+					
 					new FC3ReadRegistersTask(11506, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_3_CURRENT, new FloatDoublewordElement(11506))),
 					new FC3ReadRegistersTask(11566, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_3_ACTIVE_POWER, new FloatDoublewordElement(11566))),
 					new FC3ReadRegistersTask(11574, Priority.LOW, //
-						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574)))
+						m(Accura2300.ChannelId.ACCURA2350_3_REACTIVE_POWER, new FloatDoublewordElement(11574))),
+					new FC3ReadRegistersTask(11582, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_APPARENT_POWER, new FloatDoublewordElement(11582))),
+					new FC3ReadRegistersTask(11630, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_3_POWER_FACTOR, new FloatDoublewordElement(11630)))
 				);
 		} else if(this.config.sensor_num() == 2) {
 			mod = new ModbusProtocol(this,				
@@ -1829,7 +2652,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
 							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046))),
 					
-					new FC3ReadRegistersTask(11122, Priority.LOW,
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -1839,12 +2662,21 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
 					new FC3ReadRegistersTask(11416, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_ACTIVE_POWER, new FloatDoublewordElement(11416))),
 					new FC3ReadRegistersTask(11424, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424)))
+						m(Accura2300.ChannelId.ACCURA2350_2_REACTIVE_POWER, new FloatDoublewordElement(11424))),
+					new FC3ReadRegistersTask(11432, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_APPARENT_POWER, new FloatDoublewordElement(11432))),
+					new FC3ReadRegistersTask(11480, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_2_POWER_FACTOR, new FloatDoublewordElement(11480)))
 				);
 		} else {		
 		// sensor_num == 1  일때 시
@@ -1876,7 +2708,11 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),								
 						// 11274  무효전력[KVAR total]
 					new FC3ReadRegistersTask(11274, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274)))								
+						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
+					new FC3ReadRegistersTask(11282, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
+					new FC3ReadRegistersTask(11330, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330)))
 				);
 		}
 		
