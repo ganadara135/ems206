@@ -18,6 +18,7 @@ import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
 import io.openems.edge.bridge.modbus.api.ModbusProtocol;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
+import io.openems.edge.bridge.modbus.api.element.UnsignedWordElement;
 import io.openems.edge.bridge.modbus.api.task.FC4ReadInputRegistersTask;
 import io.openems.edge.common.channel.Channel;
 import io.openems.edge.common.channel.Doc;
@@ -70,7 +71,16 @@ implements SymmetricMeter, OpenemsComponent {
 		GAS_USAGE_15(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE)),
 		GAS_USAGE_16(Doc.of(OpenemsType.INTEGER) //
-				.unit(Unit.NONE));
+				.unit(Unit.NONE)),
+		TEMP_BURNER_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.DEGREE_CELSIUS)),
+		TEMP_BURNER_ON_OFF_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.ON_OFF)),
+		TEMP_BURNER_9(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.DEGREE_CELSIUS)),
+		TEMP_BURNER_ON_OFF_9(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.ON_OFF));
+		
 
 		private final Doc doc;
 
@@ -149,7 +159,15 @@ implements SymmetricMeter, OpenemsComponent {
 			new FC4ReadInputRegistersTask(141, Priority.LOW,
 					m(PlcOfSungha.ChannelId.GAS_USAGE_15, new UnsignedDoublewordElement(141))),
 			new FC4ReadInputRegistersTask(151, Priority.LOW,
-					m(PlcOfSungha.ChannelId.GAS_USAGE_16, new UnsignedDoublewordElement(151)))
+					m(PlcOfSungha.ChannelId.GAS_USAGE_16, new UnsignedDoublewordElement(151))),
+			new FC4ReadInputRegistersTask(161, Priority.LOW,
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_1, new UnsignedWordElement(161))),
+			new FC4ReadInputRegistersTask(163, Priority.LOW,
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_ON_OFF_1, new UnsignedWordElement(163))),
+			new FC4ReadInputRegistersTask(171, Priority.LOW,
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_9, new UnsignedWordElement(171))),
+			new FC4ReadInputRegistersTask(173, Priority.LOW,
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_ON_OFF_9, new UnsignedWordElement(173)))			
 			);
 	}
 	
@@ -201,6 +219,18 @@ implements SymmetricMeter, OpenemsComponent {
 	Channel<Integer> getGasUsage16() {
 		return this.channel(ChannelId.GAS_USAGE_16);
 	}
+	Channel<Integer> getTempBurner1() {
+		return this.channel(ChannelId.TEMP_BURNER_1);
+	}
+	Channel<Integer> getTempBurnerOnOff_1() {
+		return this.channel(ChannelId.TEMP_BURNER_ON_OFF_1);
+	}
+	Channel<Integer> getTempBurner9() {
+		return this.channel(ChannelId.TEMP_BURNER_9);
+	}
+	Channel<Integer> getTempBurnerOnOff_9() {
+		return this.channel(ChannelId.TEMP_BURNER_ON_OFF_9);
+	}
 
 	
 
@@ -210,8 +240,8 @@ implements SymmetricMeter, OpenemsComponent {
 				+ this.getGasUsage2().value().asString() + " / "
 				+ this.getGasUsage3().value().asString() + " / "
 				+ this.getGasUsage4().value().asString() + " / "
-				+ this.getGasUsage5().value().asString() + " / "
-				+ this.getGasUsage16().value().asString();
+				+ this.getTempBurner9().value().asString() + " / "
+				+ this.getTempBurnerOnOff_9().value().asString();
 	}
 	
 	@Override

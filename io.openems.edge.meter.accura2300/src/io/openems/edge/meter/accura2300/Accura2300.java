@@ -52,120 +52,205 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 
 	private Config config = null;
 
-	public enum ChannelId implements io.openems.edge.common.channel.ChannelId {		
-		ACCURA2300_VOLTAGE(Doc.of(OpenemsType.FLOAT)
+	public enum ChannelId implements io.openems.edge.common.channel.ChannelId {	
+		// register 862  Wiring mode  결선모드 UInt16    1p or 3p    // 1p 와 3p 따라서 Modbus Map 다
+		// register 1112  CT(Accura2350) 갯수 관리 대상 모듈의 수.  UInt16 
+		// register 11045	Validity of Accura 2300[S] Voltage data, UInt16  1: Accura 2300[S] 전압 데이터가 정상적 fetch 됨.
+		// register 11046 ~ +39  CT 모듈 데이터유효성체크  UInt16   -1 = 비유효,  0 = 3상, 1 = 1상 
+		
+		ACCURA2300_VOLTAGE(Doc.of(OpenemsType.FLOAT)  // 삼상전압의기본파성분평균.단위[V]  //  REGISTER  11123
 				.unit(Unit.VOLT)),
-		ACCURA2300_FREQUENCY(Doc.of(OpenemsType.FLOAT) //
+		ACCURA2300_FREQUENCY(Doc.of(OpenemsType.FLOAT) // 입력 전압 주파수. 단위 [Hz]   //  REGISTER  11151
 				.unit(Unit.HERTZ)),
-		ACCURA2350_1_CURRENT(Doc.of(OpenemsType.FLOAT) //
+		ACCURA2300_WIRING_MODE(Doc.of(OpenemsType.INTEGER) //  Wiring mode  결선모드 UInt16    1p or 3p 
+				.unit(Unit.NONE)),
+		ACCURA2300_CT_CONNECTED_NUM(Doc.of(OpenemsType.INTEGER) //  CT(Accura2350) 갯수 관리 대상 모듈의 수.
+				.unit(Unit.NONE)),
+		ACCURA2300_VALIDITY_VOLTAGE_DATA(Doc.of(OpenemsType.INTEGER) //  Validity of Accura 2300[S] Voltage data
+				.unit(Unit.NONE)),
+		ACCURA2300_VALIDITY_CT_DATA(Doc.of(OpenemsType.INTEGER) //  CT 모듈 데이터유효성체크
+				.unit(Unit.NONE)),
+		
+		ACCURA2350_1_CURRENT(Doc.of(OpenemsType.FLOAT) // 삼상전류평균.단위[A]  //  REGISTER  +16    간격 150
 				.unit(Unit.AMPERE)),
-//				.text(POWER_DOC_TEXT)),		
-		ACCURA2350_1_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
+		ACCURA2350_1_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 유효전력 총합. 단위 [kW]  //  REGISTER  +66
 				.unit(Unit.KILOWATT)),		
-		ACCURA2350_1_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
-				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),				
+		ACCURA2350_1_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 무효전력 총합. 단위 [kVAR] //  REGISTER  +74
+				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_1_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_1_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),		
 		ACCURA2350_2_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),		
 		ACCURA2350_2_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),			
 		ACCURA2350_2_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_2_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_2_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_3_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_3_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_3_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_3_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_3_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_4_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),
 		ACCURA2350_4_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_4_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_4_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_4_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_5_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_5_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) // 해당파트의 오류 잡기 위해서 바꿈 
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_5_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_5_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_5_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_6_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_6_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),
 		ACCURA2350_6_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_6_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_6_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_7_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),
 		ACCURA2350_7_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_7_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
-				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),				
+				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_7_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_7_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),			
 		ACCURA2350_8_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),		
 		ACCURA2350_8_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),			
 		ACCURA2350_8_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_8_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_8_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_9_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_9_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_9_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_9_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_9_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_10_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),
 		ACCURA2350_10_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_10_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_10_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_10_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_11_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_11_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_11_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_11_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_11_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_12_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_12_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),
 		ACCURA2350_12_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_12_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_12_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_13_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_13_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_13_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_13_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_13_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_14_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_14_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),
 		ACCURA2350_14_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_14_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_14_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_15_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_15_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_15_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_15_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_15_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_16_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_16_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),
 		ACCURA2350_16_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_16_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_16_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_17_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_17_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),		
 		ACCURA2350_17_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_17_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_17_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE)),
 		ACCURA2350_18_CURRENT(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.AMPERE)),	
 		ACCURA2350_18_ACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.KILOWATT)),
 		ACCURA2350_18_REACTIVE_POWER(Doc.of(OpenemsType.FLOAT) //
-				.unit(Unit.KILOVOLT_AMPERE_REACTIVE));
+				.unit(Unit.KILOVOLT_AMPERE_REACTIVE)),
+		ACCURA2350_18_APPARENT_POWER(Doc.of(OpenemsType.FLOAT) // 삼상의 피상전력 총합. 단위 [kVA]  //  REGISTER  +82
+				.unit(Unit.KILOVOLT_AMPERE)),  
+		ACCURA2350_18_POWER_FACTOR(Doc.of(OpenemsType.FLOAT) //  Total 역률.		//  REGISTER  +130
+				.unit(Unit.NONE));
 
 		private final Doc doc;
 
@@ -222,15 +307,13 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				+ this.getAccura2350Current01().value().asString() + " / "
 				+ this.getAccura2350Active01().value().asString() + " / "
 				+ this.getAccura2350Reactive01().value().asString() + " / "
-				+ this.getAccura2350Current02().value().asString() + " / "
-				+ this.getAccura2350Active02().value().asString() + " / "
-				+ this.getAccura2350Reactive02().value().asString() + " / "
-				+ this.getAccura2350Current03().value().asString() + " / "
-				+ this.getAccura2350Active03().value().asString() + " / "
-				+ this.getAccura2350Reactive03().value().asString() + " / "
-				+ this.getAccura2350Current10().value().asString() + " / "
-				+ this.getAccura2350Active10().value().asString() + " / "
-				+ this.getAccura2350Reactive10().value().asString() + " / ";
+				+ this.getAccura2350Apparent01().value().asString() + " / "
+				+ this.getAccura2350PowerFactor01().value().asString() + " / "
+				
+				+ this.getAccura2300Wiring_Mode().value().asString() + " / "
+				+ this.getAccura2300_CT_Connected_Num().value().asString() + " / "
+				+ this.getAccura2300_Validity_CT_Data().value().asString() + " / "
+				+ this.getAccura2300_Validity_Voltage_Data().value().asString();
 	}
 	
 	public Channel<Float> getAccuraVoltage() {
@@ -238,7 +321,19 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	}	
 	public Channel<Float> getAccuraFrequency() {
 		return this.channel(ChannelId.ACCURA2300_FREQUENCY);
-	}	
+	}
+	public Channel<Integer> getAccura2300Wiring_Mode() {
+		return this.channel(ChannelId.ACCURA2300_WIRING_MODE);
+	}
+	public Channel<Integer> getAccura2300_CT_Connected_Num() {
+		return this.channel(ChannelId.ACCURA2300_CT_CONNECTED_NUM);
+	}
+	public Channel<Integer> getAccura2300_Validity_Voltage_Data() {
+		return this.channel(ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA);
+	}
+	public Channel<Integer> getAccura2300_Validity_CT_Data() {
+		return this.channel(ChannelId.ACCURA2300_VALIDITY_CT_DATA);
+	}
 	public Channel<Float> getAccura2350Current01() {
 		return this.channel(ChannelId.ACCURA2350_1_CURRENT);
 	}	
@@ -247,7 +342,13 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	}	
 	public Channel<Float> getAccura2350Reactive01() {
 		return this.channel(ChannelId.ACCURA2350_1_REACTIVE_POWER);
+	}
+	public Channel<Float> getAccura2350Apparent01() {
+		return this.channel(ChannelId.ACCURA2350_1_APPARENT_POWER);
 	}	
+	public Channel<Float> getAccura2350PowerFactor01() {
+		return this.channel(ChannelId.ACCURA2350_1_POWER_FACTOR);
+	}
 	public Channel<Float> getAccura2350Current02() {
 		return this.channel(ChannelId.ACCURA2350_2_CURRENT);
 	}	
@@ -256,6 +357,12 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	}	
 	public Channel<Float> getAccura2350Reactive02() {
 		return this.channel(ChannelId.ACCURA2350_2_REACTIVE_POWER);
+	}	
+	public Channel<Float> getAccura2350Apparent02() {
+		return this.channel(ChannelId.ACCURA2350_2_APPARENT_POWER);
+	}	
+	public Channel<Float> getAccura2350PowerFactor02() {
+		return this.channel(ChannelId.ACCURA2350_2_POWER_FACTOR);
 	}	
 	public Channel<Float> getAccura2350Current03() {
 		return this.channel(ChannelId.ACCURA2350_3_CURRENT);
@@ -266,6 +373,12 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	public Channel<Float> getAccura2350Reactive03() {
 		return this.channel(ChannelId.ACCURA2350_3_REACTIVE_POWER);
 	}
+	public Channel<Float> getAccura2350Apparent03() {
+		return this.channel(ChannelId.ACCURA2350_3_APPARENT_POWER);
+	}	
+	public Channel<Float> getAccura2350PowerFactor03() {
+		return this.channel(ChannelId.ACCURA2350_3_POWER_FACTOR);
+	}
 	public Channel<Float> getAccura2350Current10() {
 		return this.channel(ChannelId.ACCURA2350_10_CURRENT);
 	}	
@@ -275,8 +388,13 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	public Channel<Float> getAccura2350Reactive10() {
 		return this.channel(ChannelId.ACCURA2350_10_REACTIVE_POWER);
 	}
-	
-	
+	public Channel<Float> getAccura2350Apparent10() {
+		return this.channel(ChannelId.ACCURA2350_10_APPARENT_POWER);
+	}	
+	public Channel<Float> getAccura2350PowerFactor10() {
+		return this.channel(ChannelId.ACCURA2350_10_POWER_FACTOR);
+	}
+
 	
 	@Override
 	public MeterType getMeterType() {
@@ -287,19 +405,47 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 	@Override
 	protected ModbusProtocol defineModbusProtocol() {
 		// TODO implement ModbusProtocol
-		// register 11045	Validity of Accura 2300[S] Voltage data, 1: Accura 2300[S] 전압 데이터가 정상적 fetch 됨.
-		// register 11046 ~ +39  CT 모듈 데이터유효성체크 -1 = 비유효,  0 = 3상, 1 = 1상 
-		// register 862   결선모드  1p or 3p  // 1p 와 3p 따라서 Modbus Map 다
-		// register 1112   CT(Accura2350) 갯수 
+		// register 862  Wiring mode  결선모드 UInt16    1p or 3p    // 1p 와 3p 따라서 Modbus Map 다
+		// register 1112  CT(Accura2350) 갯수 관리 대상 모듈의 수.  UInt16 
+		// register 11001  Aggregation selection  UInt16    1: (default) Aggregation 1 (1초), Max/Min 포함
+		// register 11045	Validity of Accura 2300[S] Voltage data, UInt16  1: Accura 2300[S] 전압 데이터가 정상적 fetch 됨.
+		// register 11046 ~ +39  CT 모듈 데이터유효성체크  UInt16   -1 = 비유효,  0 = 3상, 1 = 1상 
 		// 본 프로그램 가동전에 해당 CT 들이 정상 작동하는 지 유효성체크 후에 가동 시킨다.
 		// 설명 링크 : https://blog.naver.com/kjamjalee/222093298925
-		
+//		11266  유효전력[kW]    11274  무효전력[kVAR]     11283 피상전력[kVA]      11285 누설전류[A]
+//		11313	삼상의 유효전력 예측[kW]  11323 삼상의 전류 예측[A]		11331  역률
 		
 		ModbusProtocol mod = null;
 		
 		if(this.config.sensor_num() == 18) {
-			mod = new ModbusProtocol(this,					
-					new FC3ReadRegistersTask(11122, Priority.LOW,	// Long 아닌 Interger 로 처리됨.
+			mod = new ModbusProtocol(this,			
+					// Java 는 레지스터 넘버 0 번 부터 시작.
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11060)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11061)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11062))),
+					
+					new FC3ReadRegistersTask(11122, Priority.LOW,	
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_FREQUENCY, new FloatDoublewordElement(11150))),
@@ -413,7 +559,31 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_18_REACTIVE_POWER, new FloatDoublewordElement(14024)))
 				);
 		}else if(this.config.sensor_num() == 17) {
-			mod = new ModbusProtocol(this,					
+			mod = new ModbusProtocol(this,		
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11060)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11061))),							
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -523,6 +693,29 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 16) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11060))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -625,7 +818,29 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_16_REACTIVE_POWER, new FloatDoublewordElement(13724)))
 				);
 		}else if(this.config.sensor_num() == 15) {
-			mod = new ModbusProtocol(this,					
+			mod = new ModbusProtocol(this,		
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11059))),							
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -723,6 +938,27 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 14) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11058))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -814,6 +1050,26 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 13) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11057))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -898,7 +1154,26 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_13_REACTIVE_POWER, new FloatDoublewordElement(13274)))
 				);
 		}else if(this.config.sensor_num() == 12) {
-			mod = new ModbusProtocol(this,					
+			mod = new ModbusProtocol(this,				
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11056))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -978,6 +1253,24 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 11) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11055))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1051,6 +1344,23 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 10) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11054))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1118,6 +1428,22 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 9) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11053))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1179,6 +1505,21 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 8) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11052))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1234,6 +1575,20 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 7) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11051))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1283,6 +1638,19 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 6) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11050))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1326,6 +1694,18 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 5) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11049))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1363,6 +1743,17 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 4) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11048))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1394,6 +1785,16 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}else if(this.config.sensor_num() == 3) {
 			mod = new ModbusProtocol(this,					
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11047))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1419,6 +1820,15 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		} else if(this.config.sensor_num() == 2) {
 			mod = new ModbusProtocol(this,				
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11046))),
+					
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
 					new FC3ReadRegistersTask(11150, Priority.LOW,
@@ -1440,6 +1850,14 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 		// sensor_num == 1  일때 시
 		// 이 방식은 데이터 종류별로 묶어서 컨넥션 횟수를 줄일 수 있
 			mod =  new ModbusProtocol(this,
+					new FC3ReadRegistersTask(861, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_WIRING_MODE, new UnsignedWordElement(861))),
+					new FC3ReadRegistersTask(1111, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_CT_CONNECTED_NUM, new UnsignedWordElement(1111))),
+					new FC3ReadRegistersTask(11044, Priority.LOW,	
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_VOLTAGE_DATA, new UnsignedWordElement(11044)),
+							m(Accura2300.ChannelId.ACCURA2300_VALIDITY_CT_DATA, new UnsignedWordElement(11045))),
+					
 					// Voltage Data of Accura 2300[S]
 					new FC3ReadRegistersTask(11122, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2300_VOLTAGE, new FloatDoublewordElement(11122))),
@@ -1462,10 +1880,7 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 				);
 		}
 		
-		return mod;
-		
-//		11266  유효전력[kW]    11274  무효전력[kVAR]     11283 피상전력[kVA]      11285 누설전류[A]
-//		11313	삼상의 유효전력 예측[kW]  11323 삼상의 전류 예측[A]		11331  역률 
+		return mod; 
 	}
 
 	
