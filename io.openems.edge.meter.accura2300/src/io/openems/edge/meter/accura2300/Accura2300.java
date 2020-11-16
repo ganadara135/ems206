@@ -542,10 +542,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -770,10 +770,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -986,10 +986,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -1190,10 +1190,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -1382,10 +1382,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -1562,10 +1562,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -1730,10 +1730,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -1886,10 +1886,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12740, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12740))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -2030,10 +2030,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(12756, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_10_CURRENT, new FloatDoublewordElement(12756))),
@@ -2074,10 +2074,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_ACTIVE_POWER, new FloatDoublewordElement(11266))),
 					new FC3ReadRegistersTask(11274, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
@@ -2162,10 +2162,10 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_9_ACTIVE_POWER, new FloatDoublewordElement(12666))),
 					new FC3ReadRegistersTask(12674, Priority.LOW, //
 						m(Accura2300.ChannelId.ACCURA2350_9_REACTIVE_POWER, new FloatDoublewordElement(12674))),
-					new FC3ReadRegistersTask(11282, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(11330)))
+					new FC3ReadRegistersTask(12682, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_APPARENT_POWER, new FloatDoublewordElement(12682))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_9_POWER_FACTOR, new FloatDoublewordElement(12730)))
 				);
 		}else if(this.config.sensor_num() == 8) {
 			mod = new ModbusProtocol(this,					
@@ -2196,8 +2196,8 @@ public class Accura2300 extends AbstractOpenemsModbusComponent
 						m(Accura2300.ChannelId.ACCURA2350_1_REACTIVE_POWER, new FloatDoublewordElement(11274))),
 					new FC3ReadRegistersTask(11282, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_1_APPARENT_POWER, new FloatDoublewordElement(11282))),
-					new FC3ReadRegistersTask(11330, Priority.LOW,
-						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(11330))),
+					new FC3ReadRegistersTask(12730, Priority.LOW,
+						m(Accura2300.ChannelId.ACCURA2350_1_POWER_FACTOR, new FloatDoublewordElement(12730))),
 					
 					new FC3ReadRegistersTask(11356, Priority.LOW,
 						m(Accura2300.ChannelId.ACCURA2350_2_CURRENT, new FloatDoublewordElement(11356))),
