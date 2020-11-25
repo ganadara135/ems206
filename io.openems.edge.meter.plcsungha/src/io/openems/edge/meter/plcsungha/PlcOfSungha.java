@@ -17,6 +17,8 @@ import io.openems.common.types.OpenemsType;
 import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
 import io.openems.edge.bridge.modbus.api.ModbusProtocol;
+import io.openems.edge.bridge.modbus.api.element.SignedDoublewordElement;
+import io.openems.edge.bridge.modbus.api.element.SignedWordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedWordElement;
 import io.openems.edge.bridge.modbus.api.task.FC4ReadInputRegistersTask;
@@ -74,11 +76,15 @@ implements SymmetricMeter, OpenemsComponent {
 				.unit(Unit.NONE)),
 		TEMP_BURNER_1(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.DEGREE_CELSIUS)),
-		TEMP_BURNER_ON_OFF_1(Doc.of(OpenemsType.SHORT) //
+		SET_TEMP_BURNER_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.DEGREE_CELSIUS)),
+		TEMP_BURNER_ON_OFF_1(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE)),
 		TEMP_BURNER_9(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.DEGREE_CELSIUS)),
-		TEMP_BURNER_ON_OFF_9(Doc.of(OpenemsType.SHORT) //
+		SET_TEMP_BURNER_9(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.DEGREE_CELSIUS)),
+		TEMP_BURNER_ON_OFF_9(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE));
 		
 
@@ -161,13 +167,14 @@ implements SymmetricMeter, OpenemsComponent {
 			new FC4ReadInputRegistersTask(151, Priority.LOW,
 					m(PlcOfSungha.ChannelId.GAS_USAGE_16, new UnsignedDoublewordElement(151))),
 			new FC4ReadInputRegistersTask(161, Priority.LOW,
-					m(PlcOfSungha.ChannelId.TEMP_BURNER_1, new UnsignedWordElement(161))),
-			new FC4ReadInputRegistersTask(163, Priority.LOW,
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_1, new SignedWordElement(161)),
+					m(PlcOfSungha.ChannelId.SET_TEMP_BURNER_1, new SignedWordElement(162)),
 					m(PlcOfSungha.ChannelId.TEMP_BURNER_ON_OFF_1, new UnsignedWordElement(163))),
+			
 			new FC4ReadInputRegistersTask(171, Priority.LOW,
-					m(PlcOfSungha.ChannelId.TEMP_BURNER_9, new UnsignedWordElement(171))),
-			new FC4ReadInputRegistersTask(173, Priority.LOW,
-					m(PlcOfSungha.ChannelId.TEMP_BURNER_ON_OFF_9, new UnsignedWordElement(173)))			
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_9, new SignedWordElement(171)),
+					m(PlcOfSungha.ChannelId.SET_TEMP_BURNER_9, new SignedWordElement(172)),
+					m(PlcOfSungha.ChannelId.TEMP_BURNER_ON_OFF_9, new UnsignedWordElement(173)))
 			);
 	}
 	
