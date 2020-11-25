@@ -22,6 +22,7 @@ import io.openems.edge.bridge.modbus.api.element.FloatDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.SignedWordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedQuadruplewordElement;
+import io.openems.edge.bridge.modbus.api.element.UnsignedWordElement;
 import io.openems.edge.bridge.modbus.api.task.FC3ReadRegistersTask;
 import io.openems.edge.bridge.modbus.api.task.FC4ReadInputRegistersTask;
 import io.openems.edge.common.channel.Channel;
@@ -59,6 +60,15 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 		GAS_USAGE_7(Doc.of(OpenemsType.INTEGER) //
 				.unit(Unit.NONE)),
 		
+		TEMP_CNT_PV_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_SV_1(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_PV_2(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		TEMP_CNT_SV_2(Doc.of(OpenemsType.INTEGER) //
+				.unit(Unit.NONE)),
+		
 		DRY_AP1_1(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE)),
 		DRY_RTD_TEMP_1(Doc.of(OpenemsType.FLOAT) //
@@ -76,14 +86,6 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 		DRY_TOTAL_NM_FLOW_2(Doc.of(OpenemsType.FLOAT) //
 				.unit(Unit.NONE));
 		
-//		TEMP_CNT_PV_1(Doc.of(OpenemsType.INTEGER) //
-//				.unit(Unit.NONE)),
-//		TEMP_CNT_SV_1(Doc.of(OpenemsType.INTEGER) //
-//				.unit(Unit.NONE)),
-//		TEMP_CNT_PV_2(Doc.of(OpenemsType.INTEGER) //
-//				.unit(Unit.NONE)),
-//		TEMP_CNT_SV_2(Doc.of(OpenemsType.INTEGER) //
-//				.unit(Unit.NONE));
 
 		private final Doc doc;
 
@@ -154,11 +156,13 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 					m(PlcOfPnt.ChannelId.DRY_AP1_2, new FloatDoublewordElement(81)),
 					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_2, new FloatDoublewordElement(83)),
 					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_2, new FloatDoublewordElement(85)),
-					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(87)))
-//			new FC4ReadInputRegistersTask(111, Priority.LOW,
-//					m(PlcOfPnt.ChannelId.GAS_USAGE_12, new UnsignedDoublewordElement(111))),
-//			new FC4ReadInputRegistersTask(121, Priority.LOW,
-//					m(PlcOfPnt.ChannelId.GAS_USAGE_13, new UnsignedDoublewordElement(121)))					
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(87))),
+
+			new FC4ReadInputRegistersTask(91, Priority.LOW,
+					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_1, new UnsignedWordElement(91)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_1, new UnsignedWordElement(92)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_2, new UnsignedWordElement(93)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_2, new UnsignedWordElement(94)))
 			);
 	}
 	
@@ -174,14 +178,17 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 	Channel<Integer> getGasUsage4() {
 		return this.channel(ChannelId.GAS_USAGE_4);
 	}
-	Channel<Integer> getGasUsage5() {
-		return this.channel(ChannelId.GAS_USAGE_5);
+	Channel<Integer> getTempCntPv1() {
+		return this.channel(ChannelId.TEMP_CNT_PV_1);
 	}
-	Channel<Integer> getGasUsage6() {
-		return this.channel(ChannelId.GAS_USAGE_6);
+	Channel<Integer> getTempCntSv1() {
+		return this.channel(ChannelId.TEMP_CNT_SV_2);
 	}
-	Channel<Integer> getGasUsage7() {
-		return this.channel(ChannelId.GAS_USAGE_7);
+	Channel<Integer> getTempCntPv2() {
+		return this.channel(ChannelId.TEMP_CNT_PV_2);
+	}
+	Channel<Integer> getTempCntSv2() {
+		return this.channel(ChannelId.TEMP_CNT_SV_2);
 	}
 	Channel<Float> getDryAp1() {
 		return this.channel(ChannelId.DRY_AP1_1);
@@ -216,10 +223,10 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 				+ this.getDryNmFlow1().value().asString() + " / "
 				+ this.getDryTotalNmFlow1().value().asString() + " / "
 				
-				+ this.getDryAp2().value().asString() + " / "
-				+ this.getDryRtdTemp2().value().asString() + " / "
-				+ this.getDryNmDlow2().value().asString() + " / "
-				+ this.getDryTotalNmFlow2().value().asString();
+				+ this.getTempCntPv1().value().asString() + " / "
+				+ this.getTempCntSv1().value().asString() + " / "
+				+ this.getTempCntPv2().value().asString() + " / "
+				+ this.getTempCntSv2().value().asString();
 	}
 	
 	@Override
