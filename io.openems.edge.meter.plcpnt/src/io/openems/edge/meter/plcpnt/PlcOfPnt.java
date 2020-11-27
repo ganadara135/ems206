@@ -159,10 +159,10 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(86))),
 
 			new FC4ReadInputRegistersTask(90, Priority.LOW,
-					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_1, new UnsignedWordElement(90)),
-					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_1, new UnsignedWordElement(91)),
-					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_2, new UnsignedWordElement(92)),
-					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_2, new UnsignedWordElement(93)))
+					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_1, new SignedWordElement(90)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_1, new SignedWordElement(91)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_2, new SignedWordElement(92)),
+					m(PlcOfPnt.ChannelId.TEMP_CNT_SV_2, new SignedWordElement(93)))
 			);
 	}
 	
