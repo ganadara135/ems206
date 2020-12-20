@@ -145,18 +145,31 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 					m(PlcOfPnt.ChannelId.GAS_USAGE_6, new UnsignedWordElement(50))),
 			new FC4ReadInputRegistersTask(60, Priority.LOW,
 					m(PlcOfPnt.ChannelId.GAS_USAGE_7, new UnsignedWordElement(60))),
-			new FC4ReadInputRegistersTask(70, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_AP1_1, new FloatDoublewordElement(70)),
-					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new FloatDoublewordElement(72)),
-					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new FloatDoublewordElement(74))),
-//					new DummyRegisterElement(77, 78), // 매개변수는 범위
-			new FC4ReadInputRegistersTask(78, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new FloatDoublewordElement(78)),
-//			new FC4ReadInputRegistersTask(81, Priority.LOW,
-					m(PlcOfPnt.ChannelId.DRY_AP1_2, new FloatDoublewordElement(80)),
-					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_2, new FloatDoublewordElement(82)),
-					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_2, new FloatDoublewordElement(84)),
-					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(86))),
+			
+			new FC4ReadInputRegistersTask(71, Priority.LOW,
+					m(PlcOfPnt.ChannelId.DRY_AP1_1, new FloatDoublewordElement(71)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new FloatDoublewordElement(73)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new FloatDoublewordElement(75)),
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new FloatDoublewordElement(77))),
+			
+			new FC4ReadInputRegistersTask(81, Priority.LOW,
+					m(PlcOfPnt.ChannelId.DRY_AP1_2, new FloatDoublewordElement(81)),
+					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_2, new FloatDoublewordElement(83)),
+					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_2, new FloatDoublewordElement(85)),
+					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(87))),
+
+//			new FC4ReadInputRegistersTask(70, Priority.LOW,
+//					m(PlcOfPnt.ChannelId.DRY_AP1_1, new FloatDoublewordElement(70)),
+//					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_1, new FloatDoublewordElement(72)),
+//					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_1, new FloatDoublewordElement(74))),
+////					new DummyRegisterElement(77, 78), // 매개변수는 범위
+//			new FC4ReadInputRegistersTask(78, Priority.LOW,
+//					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_1, new FloatDoublewordElement(78)),
+////			new FC4ReadInputRegistersTask(81, Priority.LOW,
+//					m(PlcOfPnt.ChannelId.DRY_AP1_2, new FloatDoublewordElement(80)),
+//					m(PlcOfPnt.ChannelId.DRY_RTD_TEMP_2, new FloatDoublewordElement(82)),
+//					m(PlcOfPnt.ChannelId.DRY_NM_FLOW_2, new FloatDoublewordElement(84)),
+//					m(PlcOfPnt.ChannelId.DRY_TOTAL_NM_FLOW_2, new FloatDoublewordElement(86))),
 
 			new FC4ReadInputRegistersTask(90, Priority.LOW,
 					m(PlcOfPnt.ChannelId.TEMP_CNT_PV_1, new SignedWordElement(90)),
@@ -208,7 +221,7 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 	Channel<Float> getDryRtdTemp2() {
 		return this.channel(ChannelId.DRY_RTD_TEMP_2);
 	}
-	Channel<Float> getDryNmDlow2() {
+	Channel<Float> getDryNmFlow2() {
 		return this.channel(ChannelId.DRY_NM_FLOW_2);
 	}
 	Channel<Float> getDryTotalNmFlow2() {
@@ -217,16 +230,15 @@ public class PlcOfPnt extends AbstractOpenemsModbusComponent
 
 	@Override
 	public String debugLog() {
-		return "L:" + this.getGasUsage1().value().asString() + " / "
-				+ this.getDryAp1().value().asString() + " / "
+		return "L:" + this.getDryAp1().value().asString() + " / "
 				+ this.getDryRtdTemp1().value().asString() + " / "
 				+ this.getDryNmFlow1().value().asString() + " / "
 				+ this.getDryTotalNmFlow1().value().asString() + " / "
 				
-				+ this.getTempCntPv1().value().asString() + " / "
-				+ this.getTempCntSv1().value().asString() + " / "
-				+ this.getTempCntPv2().value().asString() + " / "
-				+ this.getTempCntSv2().value().asString();
+				+ this.getDryAp2().value().asString() + " / "
+				+ this.getDryRtdTemp2().value().asString() + " / "
+				+ this.getDryNmFlow2().value().asString() + " / "
+				+ this.getDryTotalNmFlow2().value().asString();
 	}
 	
 	@Override
