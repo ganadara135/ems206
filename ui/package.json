@@ -45,7 +45,7 @@
     "ng2-charts": "2.3.0",
     "ng2-cookies": "^1.0.12",
     "ngx-loading": "^8.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "roboto-fontface": "0.10.0",
     "rxjs": "~6.5.4",
     "semver-compare-multi": "^1.0.3",
